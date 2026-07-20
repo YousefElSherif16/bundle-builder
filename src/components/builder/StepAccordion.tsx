@@ -1,19 +1,21 @@
-import ProductCard from "./ProductCard";
+import type { Step } from "../../types/Step";
+import { icons } from "../../assets";
+import ProductCard from "../builder/ProductCard";
 
 interface StepAccordionProps {
-  step: number;
-  title: string;
-  selectedCount: number;
-  isOpen?: boolean;
+  stepNumber: number;
+  totalSteps: number;
+  step: Step;
+  isOpen: boolean;
 }
 
 export default function StepAccordion({
+  stepNumber,
+  totalSteps,
   step,
-  title,
-  selectedCount,
-  isOpen = false,
+  isOpen,
 }: StepAccordionProps) {
-  const productCards = Array.from({ length: 5 }, (_, index) => index);
+  const stepIcon = icons[step.id as keyof typeof icons];
   const sectionClassName = `
     rounded-[10px]
     ${isOpen ? "bg-[#EDF4FF]" : "bg-white"}
@@ -37,27 +39,19 @@ export default function StepAccordion({
               px-[15px]
             "
           >
-            STEP {step} OF 4
+            STEP {stepNumber} OF {totalSteps}
           </span>
         </div>
 
         {/* TITLE ROW */}
         <div className="px-[15px] mt-[14px] flex h-[26px] items-center justify-between">
-          {/* Left */}
           <div className="flex flex-1 items-center gap-[8px]">
-            {/* Temporary Icon */}
             <div
-              className="
-                flex
-                h-[26px]
-                w-[26px]
-                items-center
+              className="flex h-[26px] w-[26px]  items-center
                 justify-center
-                rounded
-                border
-              "
+"
             >
-              📷
+              <img src={stepIcon} alt="" className="h-[26px] w-[26px]" />
             </div>
 
             <h2
@@ -67,11 +61,10 @@ export default function StepAccordion({
                 text-[#0B0D10]
               "
             >
-              {title}
+              {step.title}
             </h2>
           </div>
 
-          {/* Right */}
           <div className="flex items-center gap-[4px]">
             {isOpen && (
               <span
@@ -81,66 +74,69 @@ export default function StepAccordion({
                   text-[#4E2FD2]
                 "
               >
-                {selectedCount} selected
+                2 selected
               </span>
             )}
 
-            {isOpen ? (
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path d="M6 2L11 9H1L6 2Z" fill="#4E2FD2" />
-              </svg>
-            ) : (
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path d="M1 3H11L6 10L1 3Z" fill="#4E2FD2" />
-              </svg>
-            )}
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              className={isOpen ? "" : "rotate-180"}
+            >
+              <path d="M6 2L11 9H1L6 2Z" fill="#4E2FD2" />
+            </svg>
           </div>
         </div>
       </div>
 
-      {/* Expanded Content */}
-      {isOpen && (
-        <>
-          <div className="px-[15px] pt-[20px]">
-            <div className="grid grid-cols-2 gap-[15px]">
-              {productCards.map((productCardIndex) => {
-                const isSingleItemLastRow =
-                  productCards.length % 2 !== 0 &&
-                  productCardIndex === productCards.length - 1;
+      {/* Products */}
+      {isOpen && step.products.length > 0 && (
+        <div className="px-[15px] pt-[20px]">
+          <div className="grid grid-cols-2 gap-[15px]">
+            {step.products.map((product, productCardIndex) => {
+              const isSingleItemLastRow =
+                step.products.length % 2 !== 0 &&
+                productCardIndex === step.products.length - 1;
 
-                return (
+              return (
+                <div
+                  key={productCardIndex}
+                  className={
+                    isSingleItemLastRow ? "col-span-2 flex justify-center" : ""
+                  }
+                >
                   <div
-                    key={productCardIndex}
                     className={
-                      isSingleItemLastRow
-                        ? "col-span-2 flex justify-center"
-                        : ""
+                      isSingleItemLastRow ? "w-[calc((100%-15px)/2)]" : "w-full"
                     }
                   >
-                    <ProductCard />
+                    <ProductCard key={product.id} product={product} />
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      )}
 
-          {/* Footer */}
-          <div className="flex justify-center px-[15px] py-[20px]">
-            <button
-              className="
+      {/* Footer */}
+      {isOpen && (
+        <div className="flex justify-center px-[15px] py-[20px]">
+          <button
+            className="
                 h-[44px]
                 rounded-[7px]
                 border
                 border-[#4E2FD2]
                 bg-transparent
-                px-[20px]
+              px-[20px]
                 text-[#4E2FD2]
-              "
-            >
-              Next: Choose your plan
-            </button>
-          </div>
-        </>
+            "
+          >
+            Next: Choose your plan
+          </button>
+        </div>
       )}
     </section>
   );

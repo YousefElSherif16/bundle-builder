@@ -1,7 +1,14 @@
-export default function QuantityStepper() {
+import { icons } from "../../assets";
+
+interface QuantityStepperProps {
+  value?: number;
+}
+
+export default function QuantityStepper({ value = 0 }: QuantityStepperProps) {
   return (
     <div className="flex h-[35px] w-[80px] items-center justify-between">
       <button
+        aria-label="Decrease quantity"
         className="
           flex
           h-[20px]
@@ -14,7 +21,7 @@ export default function QuantityStepper() {
           bg-white
         "
       >
-        -
+        <img src={icons.minus} alt="" className="h-[10px] w-[10px]" />
       </button>
 
       <span
@@ -24,10 +31,11 @@ export default function QuantityStepper() {
           text-[#0B0D10]
         "
       >
-        1
+        {value}
       </span>
 
       <button
+        aria-label="Increase quantity"
         className="
           flex
           h-[20px]
@@ -38,7 +46,7 @@ export default function QuantityStepper() {
           bg-[#F0F4F7]
         "
       >
-        +
+        <img src={icons.add} alt="" className="h-[10px] w-[10px]" />
       </button>
     </div>
   );

@@ -1,23 +1,33 @@
 import QuantityStepper from "../shared/QuantityStepper";
+import type { Product } from "../../types/Product";
+import VariantChip from "./VariantChip";
+import { resolveAssetImage } from "../../utils/resolveAssetImage";
 
-export default function ProductCard() {
+interface ProductCardProps {
+  product: Product;
+}
+
+export default function ProductCard({ product }: ProductCardProps) {
+  const productImageSrc = resolveAssetImage(product.image);
+  const hasQuantity = (product.quantity ?? 0) > 0;
+
   return (
     <div
-      className="
+      className={`
         flex
         h-[159px]
         gap-[19px]
         rounded-[10px]
-        border-2
-        border-[rgba(78,47,210,0.7)]
+        ${hasQuantity ? "border-2 border-[rgba(78,47,210,0.7)]" : "border-0"}
         bg-white
         p-[11px]
-      "
+      `}
     >
       {/* Image */}
       <div className="relative shrink-0">
-        <div
-          className="
+        {product.badge && (
+          <div
+            className="
             absolute
             left-0
             top-0
@@ -29,22 +39,25 @@ export default function ProductCard() {
             rounded-[10px]
             bg-[#4E2FD2]
           "
-        >
-          <span className="text-[12px] leading-[15px] text-white">
-            Save 22%
-          </span>
-        </div>
+          >
+            <span className="text-[12px] leading-[15px] text-white">
+              {product.badge}
+            </span>
+          </div>
+        )}
 
-        <img
-          src="https://placehold.co/101x137"
-          alt="Wyze Cam v4"
-          className="
-            h-[137px]
-            w-[101px]
-            rounded-[5px]
-            object-cover
-          "
-        />
+        {product.image && (
+          <img
+            src={productImageSrc}
+            alt={product.name}
+            className="
+              h-[137px]
+              w-[101px]
+              rounded-[5px]
+              object-contain
+            "
+          />
+        )}
       </div>
 
       {/* Content */}
@@ -59,7 +72,7 @@ export default function ProductCard() {
               text-[#1F1F1F]
             "
           >
-            Wyze Cam v4
+            {product.name}
           </h3>
 
           <p
@@ -70,7 +83,7 @@ export default function ProductCard() {
               text-[rgba(31,31,31,0.75)]
             "
           >
-            The clearest Wyze Cam ever made.{" "}
+            {product.description}{" "}
             <span className="cursor-pointer text-[#0046C7] underline">
               Learn More
             </span>
@@ -79,129 +92,43 @@ export default function ProductCard() {
 
         {/* Variants */}
         <div className="flex gap-[6px]">
-          {/* Selected */}
-          <button
-            className="
-              flex
-              h-[26px]
-              items-center
-              justify-center
-              gap-[2px]
-              rounded-[2px]
-              border
-              border-[#0AA288]
-              bg-[rgba(29,240,187,0.04)]
-              px-[3px]
-            "
-          >
-            <img
-              src="https://placehold.co/28x22"
-              alt=""
-              className="h-[22px] w-[28px] rounded-[5px]"
+          {product.variants?.map((variant, index) => (
+            <VariantChip
+              key={variant.id}
+              variant={variant}
+              selected={index === 0}
             />
-
-            <span
-              className="
-                text-[10px]
-                leading-[100%]
-                tracking-[0.6px]
-              "
-            >
-              White
-            </span>
-          </button>
-
-          {/* Grey */}
-          <button
-            className="
-              flex
-              h-[26px]
-              items-center
-              justify-center
-              gap-[2px]
-              rounded-[2px]
-              border
-              border-[#CCCCCC]
-              bg-white
-              px-[5px]
-            "
-          >
-            <img
-              src="https://placehold.co/28x22"
-              alt=""
-              className="h-[22px] w-[28px] rounded-[5px]"
-            />
-
-            <span
-              className="
-                text-[10px]
-                leading-[100%]
-                tracking-[0.6px]
-              "
-            >
-              Grey
-            </span>
-          </button>
-
-          {/* Black */}
-          <button
-            className="
-              flex
-              h-[26px]
-              items-center
-              justify-center
-              gap-[2px]
-              rounded-[2px]
-              border
-              border-[#CCCCCC]
-              bg-white
-              px-[5px]
-            "
-          >
-            <img
-              src="https://placehold.co/23x22"
-              alt=""
-              className="h-[22px] w-[23px] rounded-[5px]"
-            />
-
-            <span
-              className="
-                text-[10px]
-                leading-[100%]
-                tracking-[0.6px]
-              "
-            >
-              Black
-            </span>
-          </button>
+          ))}
         </div>
 
         {/* Footer */}
-        <div className="flex items-end justify-between">
-          <QuantityStepper />
+        <div className="flex h-[35px] items-end justify-between">
+          <QuantityStepper value={product.quantity} />
 
           <div className="flex flex-col items-end gap-[3px]">
-            <span
-              className="
-                text-[16px]
+            {product.compareAtPrice && (
+              <span
+                className="
+          text-[16px]
                 leading-[100%]
-                tracking-[0.6px]
-                text-[#D8392B]
-                line-through
-              "
-            >
-              $35.98
-            </span>
+          tracking-[0.6px]
+          line-through
+          text-[#D8392B]
+        "
+              >
+                ${product.compareAtPrice.toFixed(2)}
+              </span>
+            )}
 
             <span
               className="
-                text-[16px]
+        text-[16px]
                 leading-[100%]
-                tracking-[0.6px]
-                text-[#575757]
-              "
+        tracking-[0.6px]
+        text-[#575757]
+      "
             >
-              $27.98
+              ${product.price.toFixed(2)}
             </span>
           </div>
         </div>
