@@ -2,7 +2,7 @@ import StepAccordion from "./StepAccordion";
 
 export default function BuilderSection() {
   return (
-    <div className="flex flex-col gap-[15px]">
+    <div className="flex flex-col ">
       <StepAccordion
         step={1}
         title="Choose your cameras"

@@ -6,7 +6,6 @@ export default function ProductCard() {
       className="
         flex
         h-[159px]
-        w-[361.5px]
         gap-[19px]
         rounded-[10px]
         border-2
@@ -72,7 +71,9 @@ export default function ProductCard() {
             "
           >
             The clearest Wyze Cam ever made.{" "}
-            <span className="cursor-pointer text-[#0046C7]">Learn More</span>
+            <span className="cursor-pointer text-[#0046C7] underline">
+              Learn More
+            </span>
           </p>
         </div>
 
