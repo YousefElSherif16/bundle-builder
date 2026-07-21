@@ -2,16 +2,18 @@ import { create } from "zustand";
 
 export interface PopupState {
   isOpen: boolean;
+  title: string;
   message: string;
-  openPopup: (message: string) => void;
+  openPopup: (title: string, message: string) => void;
   closePopup: () => void;
 }
 
 export const usePopupStore = create<PopupState>((set) => ({
   isOpen: false,
+  title: "",
   message: "",
 
-  openPopup: (message: string) => set({ isOpen: true, message }),
+  openPopup: (title: string, message: string) => set({ isOpen: true, title, message }),
 
-  closePopup: () => set({ isOpen: false, message: "" }),
+  closePopup: () => set({ isOpen: false, title: "", message: "" }),
 }));

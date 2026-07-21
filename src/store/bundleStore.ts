@@ -71,6 +71,8 @@ export const useBundleStore = create<BundleState>()((set, get) => ({
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
-    usePopupStore.getState().openPopup("Your bundle has been saved successfully.");
+    usePopupStore
+      .getState()
+      .openPopup("System saved", "Your bundle has been saved successfully.");
   },
 }));

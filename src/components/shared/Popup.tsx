@@ -4,6 +4,7 @@ import { usePopupStore } from "@/store/popupStore";
 
 export default function Popup() {
   const isOpen = usePopupStore((state) => state.isOpen);
+  const title = usePopupStore((state) => state.title);
   const message = usePopupStore((state) => state.message);
   const closePopup = usePopupStore((state) => state.closePopup);
   const [isMounted, setIsMounted] = useState(false);
@@ -44,8 +45,11 @@ export default function Popup() {
         className="w-full max-w-[420px] rounded-[12px] bg-white p-6 shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
-        <h2 id="save-popup-title" className="text-[18px] font-semibold text-[#0B0D10]">
-          System saved
+        <h2
+          id="save-popup-title"
+          className="text-[18px] font-semibold text-[#0B0D10]"
+        >
+          {title}
         </h2>
 
         <p className="mt-3 text-[14px] leading-[20px] text-[#484848]">

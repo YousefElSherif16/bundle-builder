@@ -1,3 +1,5 @@
+import { usePopupStore } from "@/store/popupStore";
+
 interface OrderSummaryProps {
   subtotal: number;
   compareSubtotal: number;
@@ -9,6 +11,8 @@ export default function OrderSummary({
   compareSubtotal,
   savings,
 }: OrderSummaryProps) {
+  const openPopup = usePopupStore((state) => state.openPopup);
+
   return (
     <div className="flex flex-col gap-[12px]">
       {/* Top Row */}
@@ -43,6 +47,13 @@ export default function OrderSummary({
       </div>
 
       <button
+        type="button"
+        onClick={() =>
+          openPopup(
+            "Checkout",
+            "Checkout flow is not connected yet. Your selected system is ready.",
+          )
+        }
         className="
           h-[48px]
           w-full
