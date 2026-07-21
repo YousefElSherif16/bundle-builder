@@ -14,12 +14,14 @@ export default function QuantityStepper({
   size = "default",
 }: QuantityStepperProps) {
   const isSmall = size === "small";
+  const isDecrementDisabled = value <= 0;
   return (
     <div
       className={`flex items-center justify-between ${isSmall ? "h-[25px] w-[60px]" : "h-[35px] w-[80px]"}`}
     >
       <button
         aria-label="Decrease quantity"
+        disabled={isDecrementDisabled}
         className={`
           flex
           h-[20px]
@@ -28,6 +30,7 @@ export default function QuantityStepper({
           justify-center
           rounded-[4px]
           ${!isSmall ? "bg-[#F0F4F7]" : "bg-white"}
+          ${isDecrementDisabled ? "cursor-not-allowed" : ""}
         `}
         onClick={onDecrement}
       >
