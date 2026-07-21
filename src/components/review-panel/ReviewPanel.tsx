@@ -8,6 +8,7 @@ import { calculateOrderSummary } from "@/utils/calculateOrderSummary";
 
 export default function ReviewPanel() {
   const quantities = useBundleStore((state) => state.quantities);
+  const saveSystem = useBundleStore((state) => state.saveSystem);
 
   const reviewItems = buildReviewItems(quantities);
 
@@ -57,6 +58,8 @@ export default function ReviewPanel() {
           savings={summary.savings}
         />
         <button
+          type="button"
+          onClick={saveSystem}
           className="
             mb-[20px]
             text-center
