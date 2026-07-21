@@ -28,8 +28,7 @@
                             "name": "Black",
                             "image": "../assets/icons/wyze-cam-v4-black.svg"
                         }
-                    ],
-                    "quantity": 1
+                    ]
                 },
                 {
                     "id": "wyze-cam-v3",
@@ -50,8 +49,7 @@
                             "name": "Black",
                             "image": "../assets/icons/wyze-cam-v3-black.svg"
                         }
-                    ],
-                    "quantity": 2
+                    ]
                 },
                 {
                     "id": "wyze-cam-v2",
@@ -72,8 +70,7 @@
                             "name": "Black",
                             "image": "../assets/icons/wyze-cam-v2-black.svg"
                         }
-                    ],
-                    "quantity": 1
+                    ]
                 },
                 {
                     "id": "wyze-battery-cam",

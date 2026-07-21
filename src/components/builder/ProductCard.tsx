@@ -2,6 +2,9 @@ import QuantityStepper from "../shared/QuantityStepper";
 import type { Product } from "../../types/Product";
 import VariantChip from "./VariantChip";
 import { resolveAssetImage } from "../../utils/resolveAssetImage";
+import { createVariantKey } from "@/utils/createVariantKey ";
+import { useBundleStore } from "@/store/bundleStore";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -9,8 +12,19 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const productImageSrc = resolveAssetImage(product.image);
-  const hasQuantity = (product.quantity ?? 0) > 0;
+  const [selectedVariantId, setSelectedVariantId] = useState(
+    product.variants?.[0]?.id,
+  );
 
+  const selectedVariant = product.variants?.find(
+    (variant) => variant.id === selectedVariantId,
+  );
+
+  const variantKey = createVariantKey(product.id, selectedVariant?.id);
+  const { getQuantity, increaseQuantity, decreaseQuantity } = useBundleStore();
+
+  const quantity = getQuantity(variantKey);
+  const hasQuantity = quantity > 0;
   return (
     <div
       className={`
@@ -96,15 +110,19 @@ export default function ProductCard({ product }: ProductCardProps) {
             <VariantChip
               key={variant.id}
               variant={variant}
-              selected={index === 0}
+              selected={selectedVariantId === variant.id}
+              onClick={() => setSelectedVariantId(variant.id)}
             />
           ))}
         </div>
 
         {/* Footer */}
         <div className="flex h-[35px] items-end justify-between">
-          <QuantityStepper value={product.quantity} />
-
+          <QuantityStepper
+            value={quantity}
+            onIncrement={() => increaseQuantity(variantKey)}
+            onDecrement={() => decreaseQuantity(variantKey)}
+          />
           <div className="flex flex-col items-end gap-[3px]">
             {product.compareAtPrice && (
               <span

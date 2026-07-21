@@ -3,25 +3,30 @@ import { resolveAssetImage } from "../../utils/resolveAssetImage";
 
 interface VariantChipProps {
   variant: ProductVariant;
-  selected?: boolean;
+  selected: boolean;
+  onClick: () => void;
 }
 
 export default function VariantChip({
   variant,
-  selected = false,
+  selected,
+  onClick,
 }: VariantChipProps) {
   const variantImageSrc = resolveAssetImage(variant.image);
 
   return (
     <button
+      type="button"
+      onClick={onClick}
       className={`
         flex
         h-[26px]
         items-center
         gap-[2px]
         rounded-[2px]
-        px-[4px]
         border-[0.5px]
+        px-[4px]
+        transition-colors
 
         ${
           selected
@@ -34,7 +39,7 @@ export default function VariantChip({
         <img
           src={variantImageSrc}
           alt={variant.name}
-          className="h-[22px] w-[22px] rounded"
+          className="h-[22px] w-[22px] rounded-[2px] object-cover"
         />
       )}
 
@@ -43,6 +48,7 @@ export default function VariantChip({
           text-[10px]
           leading-[10px]
           tracking-[0.6px]
+          text-[#1F1F1F]
         "
       >
         {variant.name}

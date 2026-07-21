@@ -1,17 +1,72 @@
 import QuantityStepper from "../shared/QuantityStepper";
+import { resolveAssetImage } from "@/utils/resolveAssetImage";
+import type { ReviewItem } from "@/types/ReviewItem";
 
-export default function ReviewItem() {
+interface Props {
+  item: ReviewItem;
+}
+
+export default function ReviewItem({ item }: Props) {
+  const itemImageSrc = resolveAssetImage(item.image);
+
   return (
-    <div className="flex items-center gap-3">
-      <div className="h-14 w-14 rounded bg-gray-100" />
+    <div className="flex items-center gap-[16px]">
+      <div className="flex flex-1 items-center gap-[12px]">
+        <img
+          src={itemImageSrc}
+          alt={item.name}
+          className="
+            w-[41px]
+            h-[41px]
+            rounded-[5px]
+            bg-white
+            object-contain
+          "
+        />
 
-      <div className="flex-1">
-        <h4 className="text-sm font-medium">Product Name</h4>
-
-        <p className="text-sm text-gray-500">$39.99</p>
+        <span
+          className="
+            text-[14px]
+            leading-[16px]
+            text-[#0B0D10]
+          "
+        >
+          {item.name}
+        </span>
       </div>
 
-      <QuantityStepper />
+      <QuantityStepper
+        value={item.quantity}
+        onIncrement={() => {}}
+        onDecrement={() => {}}
+        size="small"
+      />
+      <div className="flex flex-col items-end gap-[3px]">
+        {item.compareAtPrice && (
+          <span
+            className="
+          text-[16px]
+                leading-[100%]
+          tracking-[0.6px]
+          line-through
+          text-[#575757]
+        "
+          >
+            ${item.compareAtPrice.toFixed(2)}
+          </span>
+        )}
+
+        <span
+          className="
+        text-[16px]
+                leading-[100%]
+        tracking-[0.6px]
+        text-[#4E2FD2]
+      "
+        >
+          ${item.price.toFixed(2)}
+        </span>
+      </div>
     </div>
   );
 }

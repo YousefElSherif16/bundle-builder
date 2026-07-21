@@ -7,6 +7,7 @@ interface StepAccordionProps {
   totalSteps: number;
   step: Step;
   isOpen: boolean;
+  selectedCount: number;
 }
 
 export default function StepAccordion({
@@ -14,6 +15,7 @@ export default function StepAccordion({
   totalSteps,
   step,
   isOpen,
+  selectedCount,
 }: StepAccordionProps) {
   const stepIcon = icons[step.id as keyof typeof icons];
   const sectionClassName = `
@@ -74,7 +76,7 @@ export default function StepAccordion({
                   text-[#4E2FD2]
                 "
               >
-                2 selected
+                {selectedCount} selected{" "}
               </span>
             )}
 
