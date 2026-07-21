@@ -2,9 +2,11 @@ import StepAccordion from "./StepAccordion";
 import bundleData from "@/data/bundle-data.json";
 import { useBundleStore } from "@/store/bundleStore";
 import type { Step } from "@/types/Step";
+import { useState } from "react";
 
 export default function BuilderSection() {
   const quantities = useBundleStore((state) => state.quantities);
+  const [openStepIndex, setOpenStepIndex] = useState(0);
 
   const getStepSelectedCount = (step: Step) => {
     return step.products.filter((product) => {
@@ -25,10 +27,22 @@ export default function BuilderSection() {
         <StepAccordion
           key={step.id}
           step={step}
-          isOpen={index === 0}
+          isOpen={index === openStepIndex}
           stepNumber={index + 1}
           totalSteps={bundleData.steps.length}
           selectedCount={getStepSelectedCount(step)}
+          onToggle={() =>
+            setOpenStepIndex((currentIndex) =>
+              currentIndex === index ? -1 : index,
+            )
+          }
+          onNext={() =>
+            setOpenStepIndex((currentIndex) =>
+              Math.min(currentIndex + 1, bundleData.steps.length - 1),
+            )
+          }
+          nextStepTitle={bundleData.steps[index + 1]?.title}
+          isLastStep={index === bundleData.steps.length - 1}
         />
       ))}
     </div>

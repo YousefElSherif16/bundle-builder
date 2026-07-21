@@ -106,7 +106,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Variants */}
         <div className="flex gap-[6px]">
-          {product.variants?.map((variant, index) => (
+          {product.variants?.map((variant) => (
             <VariantChip
               key={variant.id}
               variant={variant}

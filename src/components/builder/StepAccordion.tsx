@@ -8,6 +8,10 @@ interface StepAccordionProps {
   step: Step;
   isOpen: boolean;
   selectedCount: number;
+  onToggle: () => void;
+  onNext: () => void;
+  nextStepTitle?: string;
+  isLastStep: boolean;
 }
 
 export default function StepAccordion({
@@ -16,6 +20,10 @@ export default function StepAccordion({
   step,
   isOpen,
   selectedCount,
+  onToggle,
+  onNext,
+  nextStepTitle,
+  isLastStep,
 }: StepAccordionProps) {
   const stepIcon = icons[step.id as keyof typeof icons];
   const sectionClassName = `
@@ -26,8 +34,10 @@ export default function StepAccordion({
   return (
     <section className={sectionClassName}>
       {/* Header */}
-      <div
-        className={`${!isOpen ? "border-b border-[#1F1F1F] pb-[15px] pt-[5px]" : "py-[5px]"}`}
+      <button
+        type="button"
+        onClick={onToggle}
+        className={`${!isOpen ? "border-b border-[#1F1F1F] pb-[15px] pt-[5px]" : "py-[5px]"} w-full text-left`}
       >
         {/* STEP LABEL */}
         <div className="flex h-[12px] items-center border-b border-[#1F1F1F] py-[10px]">
@@ -90,7 +100,7 @@ export default function StepAccordion({
             </svg>
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Products */}
       {isOpen && step.products.length > 0 && (
@@ -123,9 +133,11 @@ export default function StepAccordion({
       )}
 
       {/* Footer */}
-      {isOpen && (
+      {isOpen && !isLastStep && (
         <div className="flex justify-center px-[15px] py-[20px]">
           <button
+            type="button"
+            onClick={onNext}
             className="
                 h-[44px]
                 rounded-[7px]
@@ -136,7 +148,7 @@ export default function StepAccordion({
                 text-[#4E2FD2]
             "
           >
-            Next: Choose your plan
+            {isLastStep ? "Continue" : `Next: ${nextStepTitle ?? "Next step"}`}
           </button>
         </div>
       )}
