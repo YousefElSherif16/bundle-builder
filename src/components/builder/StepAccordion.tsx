@@ -146,6 +146,10 @@ export default function StepAccordion({
                 bg-transparent
               px-[20px]
                 text-[#4E2FD2]
+                transition-colors
+                duration-200
+                hover:bg-[#4E2FD2]
+                hover:text-white
             "
           >
             {isLastStep ? "Continue" : `Next: ${nextStepTitle ?? "Next step"}`}

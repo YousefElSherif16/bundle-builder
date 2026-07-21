@@ -16,6 +16,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     product.variants?.[0]?.id,
   );
 
+  const quantities = useBundleStore((state) => state.quantities);
+
   const selectedVariant = product.variants?.find(
     (variant) => variant.id === selectedVariantId,
   );
@@ -24,7 +26,13 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { getQuantity, increaseQuantity, decreaseQuantity } = useBundleStore();
 
   const quantity = getQuantity(variantKey);
-  const hasQuantity = quantity > 0;
+  const hasQuantity =
+    quantity > 0 ||
+    product.variants?.some((variant) => {
+      const key = createVariantKey(product.id, variant.id);
+      return (quantities[key] ?? 0) > 0;
+    }) ||
+    (product.variants?.length ? false : (quantities[product.id] ?? 0) > 0);
   return (
     <div
       className={`
