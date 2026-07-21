@@ -1,6 +1,7 @@
 import QuantityStepper from "../shared/QuantityStepper";
 import { resolveAssetImage } from "@/utils/resolveAssetImage";
 import type { ReviewItem } from "@/types/ReviewItem";
+import { useBundleStore } from "@/store/bundleStore";
 
 interface Props {
   item: ReviewItem;
@@ -8,10 +9,16 @@ interface Props {
 
 export default function ReviewItem({ item }: Props) {
   const itemImageSrc = resolveAssetImage(item.image);
+  const increaseQuantity = useBundleStore((state) => state.increaseQuantity);
+  const decreaseQuantity = useBundleStore((state) => state.decreaseQuantity);
+  const linePrice = item.price * item.quantity;
+  const compareLinePrice = item.compareAtPrice
+    ? item.compareAtPrice * item.quantity
+    : undefined;
 
   return (
-    <div className="flex items-center gap-[16px]">
-      <div className="flex flex-1 items-center gap-[12px]">
+    <div className="flex items-center gap-[10px]">
+      <div className="flex min-w-0 flex-1 items-center gap-[12px]">
         <img
           src={itemImageSrc}
           alt={item.name}
@@ -26,6 +33,9 @@ export default function ReviewItem({ item }: Props) {
 
         <span
           className="
+            block
+            min-w-0
+            truncate
             text-[14px]
             leading-[16px]
             text-[#0B0D10]
@@ -37,14 +47,16 @@ export default function ReviewItem({ item }: Props) {
 
       <QuantityStepper
         value={item.quantity}
-        onIncrement={() => {}}
-        onDecrement={() => {}}
+        onIncrement={() => increaseQuantity(item.key)}
+        onDecrement={() => decreaseQuantity(item.key)}
         size="small"
       />
-      <div className="flex flex-col items-end gap-[3px]">
-        {item.compareAtPrice && (
+      <div className="flex w-[88px] shrink-0 flex-col items-end gap-[3px]">
+        {compareLinePrice !== undefined && (
           <span
             className="
+          whitespace-nowrap
+          tabular-nums
           text-[16px]
                 leading-[100%]
           tracking-[0.6px]
@@ -52,19 +64,21 @@ export default function ReviewItem({ item }: Props) {
           text-[#575757]
         "
           >
-            ${item.compareAtPrice.toFixed(2)}
+            ${compareLinePrice.toFixed(2)}
           </span>
         )}
 
         <span
           className="
+        whitespace-nowrap
+        tabular-nums
         text-[16px]
                 leading-[100%]
         tracking-[0.6px]
         text-[#4E2FD2]
       "
         >
-          ${item.price.toFixed(2)}
+          ${linePrice.toFixed(2)}
         </span>
       </div>
     </div>
