@@ -7,7 +7,7 @@ interface Props {
   item: ReviewItem;
 }
 
-export default function ReviewItem({ item }: Props) {
+export default function ReviewItemRow({ item }: Props) {
   const itemImageSrc = resolveAssetImage(item.image);
   const increaseQuantity = useBundleStore((state) => state.increaseQuantity);
   const decreaseQuantity = useBundleStore((state) => state.decreaseQuantity);

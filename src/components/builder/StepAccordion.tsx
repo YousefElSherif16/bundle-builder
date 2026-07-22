@@ -37,10 +37,13 @@ export default function StepAccordion({
       <button
         type="button"
         onClick={onToggle}
-        className={`${!isOpen ? "border-b border-[#1F1F1F] pb-[15px] pt-[5px]" : "py-[5px]"} w-full text-left`}
+        className={`${!isOpen ? "border-b border-[#CED6DE] pb-[15px] pt-[5px]" : "py-[5px]"} w-full text-left`}
       >
         {/* STEP LABEL */}
-        <div className="flex h-[12px] items-center border-b border-[#1F1F1F] py-[10px]">
+        <div
+          className="flex h-[12px] items-center border-b border-[#CED6DE]
+ py-[10px]"
+        >
           <span
             className="
               text-[12px]
@@ -105,7 +108,7 @@ export default function StepAccordion({
       {/* Products */}
       {isOpen && step.products.length > 0 && (
         <div className="px-[15px] pt-[20px]">
-          <div className="grid grid-cols-2 gap-[15px]">
+          <div className="grid grid-cols-1 gap-[15px] md:grid-cols-2">
             {step.products.map((product, productCardIndex) => {
               const isSingleItemLastRow =
                 step.products.length % 2 !== 0 &&
@@ -115,12 +118,16 @@ export default function StepAccordion({
                 <div
                   key={productCardIndex}
                   className={
-                    isSingleItemLastRow ? "col-span-2 flex justify-center" : ""
+                    isSingleItemLastRow
+                      ? "md:col-span-2 md:flex md:justify-center"
+                      : ""
                   }
                 >
                   <div
                     className={
-                      isSingleItemLastRow ? "w-[calc((100%-15px)/2)]" : "w-full"
+                      isSingleItemLastRow
+                        ? "w-full md:w-[calc((100%-15px)/2)]"
+                        : "w-full"
                     }
                   >
                     <ProductCard key={product.id} product={product} />

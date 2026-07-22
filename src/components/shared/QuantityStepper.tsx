@@ -30,7 +30,7 @@ export default function QuantityStepper({
           justify-center
           rounded-[4px]
           ${!isSmall ? "bg-[#F0F4F7]" : "bg-white"}
-          ${isDecrementDisabled ? "cursor-not-allowed" : ""}
+          ${isDecrementDisabled ? "cursor-not-allowed opacity-50" : ""}
         `}
         onClick={onDecrement}
       >

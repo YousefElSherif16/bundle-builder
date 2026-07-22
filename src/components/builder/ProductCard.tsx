@@ -33,14 +33,18 @@ export default function ProductCard({ product }: ProductCardProps) {
       return (quantities[key] ?? 0) > 0;
     }) ||
     (product.variants?.length ? false : (quantities[product.id] ?? 0) > 0);
+
   return (
     <div
       className={`
         flex
-        h-[159px]
-        gap-[19px]
+        h-auto
+        min-h-[159px]
+        gap-[12px]
+        md:gap-[19px]
         rounded-[10px]
-        ${hasQuantity ? "border-2 border-[rgba(78,47,210,0.7)]" : "border-0"}
+        border-2 
+        ${hasQuantity ? "border-[rgba(78,47,210,0.7)]" : "border-white"}
         bg-white
         p-[11px]
       `}
@@ -83,11 +87,12 @@ export default function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Content */}
-      <div className="flex h-[137px] flex-1 flex-col justify-between">
+      <div className="flex min-w-0 flex-1 flex-col justify-between gap-[10px] md:h-[137px] md:gap-0">
         {/* Title + Description */}
         <div className="flex flex-col gap-[8px]">
           <h3
             className="
+              truncate
               text-[16px]
               leading-[100%]
               tracking-[0.6px]
@@ -125,7 +130,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Footer */}
-        <div className="flex h-[35px] items-end justify-between">
+        <div className="flex items-end justify-between gap-[8px]">
           <QuantityStepper
             value={quantity}
             onIncrement={() => increaseQuantity(variantKey)}

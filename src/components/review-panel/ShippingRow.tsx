@@ -1,3 +1,5 @@
+import { icons } from "../../assets";
+
 export default function ShippingRow() {
   return (
     <div
@@ -21,7 +23,7 @@ export default function ShippingRow() {
             "
           >
             <img
-              src="/icons/delivery.svg"
+              src={icons.delivery}
               alt="Delivery"
               className="h-[29px] w-[29px]"
             />

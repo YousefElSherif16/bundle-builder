@@ -1,5 +1,6 @@
 import type { ReviewItem } from "../types/ReviewItem";
 import productsData from "../data/bundle-data.json";
+import { reviewSeedItems } from "../data/review-seed-items";
 
 export function buildReviewItems(
     quantities: Record<string, number>,
@@ -46,6 +47,24 @@ export function buildReviewItems(
                 }
             }
         });
+    });
+
+    reviewSeedItems.forEach((seedItem) => {
+        const quantity = quantities[seedItem.key] ?? 0;
+
+        if (quantity > 0) {
+            items.push({
+                key: seedItem.key,
+                productId: seedItem.productId,
+                variantId: seedItem.variantId,
+                category: seedItem.category,
+                name: seedItem.name,
+                image: seedItem.image,
+                quantity,
+                price: seedItem.price,
+                compareAtPrice: seedItem.compareAtPrice,
+            });
+        }
     });
 
     return items;

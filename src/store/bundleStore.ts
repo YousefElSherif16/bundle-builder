@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { usePopupStore } from "@/store/popupStore";
+import { reviewSeedItems } from "@/data/review-seed-items";
 
 export interface BundleState {
   quantities: Record<string, number>;
@@ -14,6 +15,14 @@ export interface BundleState {
 
 const STORAGE_KEY = "bundle-builder";
 
+const defaultQuantities = reviewSeedItems.reduce<Record<string, number>>(
+  (acc, item) => {
+    acc[item.key] = item.defaultQuantity;
+    return acc;
+  },
+  {},
+);
+
 const loadSavedQuantities = (): Record<string, number> => {
   if (typeof window === "undefined") {
     return {};
@@ -22,9 +31,11 @@ const loadSavedQuantities = (): Record<string, number> => {
   try {
     const savedData = window.localStorage.getItem(STORAGE_KEY);
 
-    return savedData ? (JSON.parse(savedData) as Record<string, number>) : {};
+    return savedData
+      ? (JSON.parse(savedData) as Record<string, number>)
+      : defaultQuantities;
   } catch {
-    return {};
+    return defaultQuantities;
   }
 };
 

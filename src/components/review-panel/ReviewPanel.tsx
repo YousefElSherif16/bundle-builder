@@ -1,6 +1,6 @@
 import ReviewHeader from "./ReviewHeader";
 import ReviewSection from "./ReviewSection";
-import ShippingRow from "./ShippingBadge";
+import ShippingRow from "./ShippingRow";
 import OrderSummary from "./OrderSummary";
 import { buildReviewItems } from "@/utils/buildReviewItems";
 import { useBundleStore } from "@/store/bundleStore";
@@ -18,8 +18,8 @@ export default function ReviewPanel() {
 
   const planItems = reviewItems.filter((item) => item.category === "plan");
 
-  const protectionItems = reviewItems.filter(
-    (item) => item.category === "protection",
+  const accessoryItems = reviewItems.filter(
+    (item) => item.category === "accessories",
   );
 
   const summary = calculateOrderSummary(reviewItems);
@@ -48,7 +48,7 @@ export default function ReviewPanel() {
         <ReviewSection title="Cameras" items={cameraItems} />
         <ReviewSection title="Sensors" items={sensorItems} />
         <ReviewSection title="Plan" items={planItems} />
-        <ReviewSection title="Protection" items={protectionItems} />
+        <ReviewSection title="Accessories" items={accessoryItems} />
 
         <ShippingRow />
 

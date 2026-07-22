@@ -1,4 +1,4 @@
-import ReviewItemRow from "./ReviewItem";
+import ReviewItemRow from "./ReviewItemRow";
 import type { ReviewItem } from "@/types/ReviewItem";
 
 interface Props {

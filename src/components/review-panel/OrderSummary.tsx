@@ -1,4 +1,5 @@
 import { usePopupStore } from "@/store/popupStore";
+import { images } from "../../assets";
 
 interface OrderSummaryProps {
   subtotal: number;
@@ -18,14 +19,19 @@ export default function OrderSummary({
       {/* Top Row */}
       <div className="flex items-center justify-between">
         <img
-          src="/images/satisfaction-badge.webp"
+          src={images.badge}
           alt="Satisfaction Badge"
           className="h-[78px] w-[78px]"
         />
 
         <div className="flex flex-col items-end gap-[8px]">
-          <div className="rounded-[3px] bg-[#4E2FD2] px-[8px] py-[5px]">
-            <span className="text-[12px] text-white">as low as $19.19/mo</span>
+          <div className="flex items-center justify-center rounded-[3px] bg-[#4E2FD2] px-[8px] py-[5px]">
+            <span
+              className=" text-[12px] font-normal leading-[10px] tracking-[-0.05em] text-white"
+              style={{ fontFamily: "Gilroy-Medium" }}
+            >
+              as low as $19.19/mo
+            </span>
           </div>
 
           <div className="flex items-baseline gap-[8px]">

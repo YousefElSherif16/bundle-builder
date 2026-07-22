@@ -1,75 +1,65 @@
-# React + TypeScript + Vite
+# Frontend Take-Home: Bundle Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript prototype for a multi-step bundle builder with a live review panel.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19
+- TypeScript
+- Zustand (state management)
+- Tailwind CSS (utility styling)
+- Vite
 
-## React Compiler
+## Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Start development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run dev
 ```
+
+3. Build production bundle
+
+```bash
+npm run build
+```
+
+4. Preview production build
+
+```bash
+npm run preview
+```
+
+## Implemented Behavior
+
+- 4-step builder accordion with step headers and selected counts.
+- Variant-aware quantity management (each variant tracked independently).
+- Review panel synced with builder quantities.
+- Quantity steppers in both builder cards and review lines stay in sync.
+- Dynamic order summary totals (subtotal, compare-at, savings).
+- Checkout uses a placeholder popup confirmation.
+- Save my system for later persists the configuration to localStorage.
+- Reload/return restores saved configuration from localStorage.
+
+## Data Model Notes
+
+- Main catalog data is in [src/data/bundle-data.json](src/data/bundle-data.json).
+- Additional review-only seeded items (Sensors, Accessories, Plan) are defined in [src/data/review-seed-items.ts](src/data/review-seed-items.ts).
+- Initial state is seeded from those review-only items if no saved localStorage state exists.
+
+## Decisions and Tradeoffs
+
+- I used a local JSON data source (no backend/API) for predictable offline behavior.
+- I kept seeded Sensors/Accessories/Plan items review-only to match the current view where those steps do not expose add-controls.
+- Checkout intentionally uses a placeholder popup rather than navigation.
+
+## Known Limitations
+
+- Typography can be further tuned against final Figma font metrics if exact webfont files are required.
+- The seeded review-only items are static placeholders and can be replaced with API-driven catalog entries in a production setup.

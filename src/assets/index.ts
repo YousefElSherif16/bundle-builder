@@ -11,11 +11,13 @@ import wyzeCamV2White from "./icons/wyze-cam-v2-white.svg";
 import wyzeCamV2Black from "./icons/wyze-cam-v2-black.svg";
 import add from "./icons/add.svg";
 import minus from "./icons/minus.svg";
+import delivery from "./icons/delivery.svg";
 import wyzeCamV4 from "./images/wyze-cam-v4.png";
 import wyzeCamV3 from "./images/wyze-cam-v3.png";
 import wyzeCamV2 from "./images/wyze-cam-v2.png";
 import wyzeBatteryCam from "./images/wyze-battery-cam.png";
 import wyzeDuoDoorbell from "./images/wyze-duo-doorbell.png";
+import badge from "./images/badge.png";
 
 export const icons = {
   cameras,
@@ -31,6 +33,7 @@ export const icons = {
   wyzeCamV2Black,
   add,
   minus,
+  delivery,
 };
 
 
@@ -40,4 +43,5 @@ export const images = {
   wyzeCamV2,
   wyzeBatteryCam,
   wyzeDuoDoorbell,
+  badge,
 };
