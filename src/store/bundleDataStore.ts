@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { Step } from "@/types/Step";
+import bundleData from "@/data/bundle-data.json";
 
 interface BundleDataState {
     steps: Step[];
@@ -36,9 +37,10 @@ export const useBundleDataStore = create<BundleDataState>((set, get) => ({
             set({ steps, loading: false, hasFetched: true });
         } catch {
             set({
+                steps: bundleData.steps as Step[],
                 loading: false,
-                hasFetched: false,
-                error: "Failed to load bundle data from API.",
+                hasFetched: true,
+                error: "API unavailable. Loaded local bundle data fallback.",
             });
         }
     },
