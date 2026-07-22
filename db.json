@@ -1,0 +1,109 @@
+{
+  "steps": [
+    {
+      "id": "cameras",
+      "title": "Choose your cameras",
+      "products": [
+        {
+          "id": "wyze-cam-v4",
+          "name": "Wyze Cam v4",
+          "description": "The clearest Wyze Cam ever made.",
+          "image": "../assets/images/wyze-cam-v4.png",
+          "price": 27.98,
+          "compareAtPrice": 35.98,
+          "badge": "Save 22%",
+          "variants": [
+            {
+              "id": "white",
+              "name": "White",
+              "image": "../assets/icons/wyze-cam-v4-white.svg"
+            },
+            {
+              "id": "grey",
+              "name": "Grey",
+              "image": "../assets/icons/wyze-cam-v4-grey.svg"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "image": "../assets/icons/wyze-cam-v4-black.svg"
+            }
+          ]
+        },
+        {
+          "id": "wyze-cam-v3",
+          "name": "Wyze Cam v3",
+          "description": "The clearest Wyze Cam ever made.",
+          "image": "../assets/images/wyze-cam-v3.png",
+          "price": 27.98,
+          "compareAtPrice": 35.98,
+          "badge": "Save 22%",
+          "variants": [
+            {
+              "id": "white",
+              "name": "White",
+              "image": "../assets/icons/wyze-cam-v3-white.svg"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "image": "../assets/icons/wyze-cam-v3-black.svg"
+            }
+          ]
+        },
+        {
+          "id": "wyze-cam-v2",
+          "name": "Wyze Cam v2",
+          "description": "The clearest Wyze Cam ever made.",
+          "image": "../assets/images/wyze-cam-v2.png",
+          "price": 27.98,
+          "compareAtPrice": 35.98,
+          "badge": "Save 12%",
+          "variants": [
+            {
+              "id": "white",
+              "name": "White",
+              "image": "../assets/icons/wyze-cam-v2-white.svg"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "image": "../assets/icons/wyze-cam-v2-black.svg"
+            }
+          ]
+        },
+        {
+          "id": "wyze-battery-cam",
+          "name": "Wyze Battery Cam",
+          "description": "Protection at your front door.",
+          "image": "../assets/images/wyze-battery-cam.png",
+          "price": 89.99,
+          "variants": []
+        },
+        {
+          "id": "wyze-duo-doorbell",
+          "name": "Wyze Duo Doorbell",
+          "description": "Protection at your front door.",
+          "image": "../assets/images/wyze-duo-doorbell.png",
+          "price": 89.99,
+          "variants": []
+        }
+      ]
+    },
+    {
+      "id": "plan",
+      "title": "Choose your plan",
+      "products": []
+    },
+    {
+      "id": "sensors",
+      "title": "Choose your sensors",
+      "products": []
+    },
+    {
+      "id": "protection",
+      "title": "Add extra protection",
+      "products": []
+    }
+  ]
+}

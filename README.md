@@ -24,6 +24,14 @@ npm install
 npm run dev
 ```
 
+To run with live API data from json-server, start the API in a second terminal:
+
+```bash
+npm run api
+```
+
+Then keep `npm run dev` running in the first terminal.
+
 3. Build production bundle
 
 ```bash

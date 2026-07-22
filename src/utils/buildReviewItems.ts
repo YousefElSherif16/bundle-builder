@@ -1,13 +1,14 @@
 import type { ReviewItem } from "../types/ReviewItem";
-import productsData from "../data/bundle-data.json";
+import type { Step } from "@/types/Step";
 import { reviewSeedItems } from "../data/review-seed-items";
 
 export function buildReviewItems(
     quantities: Record<string, number>,
+    steps: Step[],
 ): ReviewItem[] {
     const items: ReviewItem[] = [];
 
-    productsData.steps.forEach((step) => {
+    steps.forEach((step) => {
         step.products.forEach((product) => {
             if (product.variants?.length) {
                 product.variants.forEach((variant) => {

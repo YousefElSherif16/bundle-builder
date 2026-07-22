@@ -4,13 +4,21 @@ import ShippingRow from "./ShippingRow";
 import OrderSummary from "./OrderSummary";
 import { buildReviewItems } from "@/utils/buildReviewItems";
 import { useBundleStore } from "@/store/bundleStore";
+import { useBundleDataStore } from "@/store/bundleDataStore";
 import { calculateOrderSummary } from "@/utils/calculateOrderSummary";
+import { useEffect } from "react";
 
 export default function ReviewPanel() {
   const quantities = useBundleStore((state) => state.quantities);
   const saveSystem = useBundleStore((state) => state.saveSystem);
+  const steps = useBundleDataStore((state) => state.steps);
+  const fetchBundleData = useBundleDataStore((state) => state.fetchBundleData);
 
-  const reviewItems = buildReviewItems(quantities);
+  useEffect(() => {
+    void fetchBundleData();
+  }, [fetchBundleData]);
+
+  const reviewItems = buildReviewItems(quantities, steps);
 
   const cameraItems = reviewItems.filter((item) => item.category === "cameras");
 

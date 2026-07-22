@@ -1,12 +1,19 @@
 import StepAccordion from "./StepAccordion";
-import bundleData from "@/data/bundle-data.json";
 import { useBundleStore } from "@/store/bundleStore";
+import { useBundleDataStore } from "@/store/bundleDataStore";
 import type { Step } from "@/types/Step";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BuilderSection() {
   const quantities = useBundleStore((state) => state.quantities);
+  const steps = useBundleDataStore((state) => state.steps);
+  const loading = useBundleDataStore((state) => state.loading);
+  const fetchBundleData = useBundleDataStore((state) => state.fetchBundleData);
   const [openStepIndex, setOpenStepIndex] = useState(0);
+
+  useEffect(() => {
+    void fetchBundleData();
+  }, [fetchBundleData]);
 
   const getStepSelectedCount = (step: Step) => {
     return step.products.filter((product) => {
@@ -23,13 +30,19 @@ export default function BuilderSection() {
 
   return (
     <div className="flex flex-col ">
-      {bundleData.steps.map((step, index) => (
+      {loading && !steps.length && (
+        <div className="rounded-[10px] bg-white px-[15px] py-[20px] text-[#484848]">
+          Loading bundle steps...
+        </div>
+      )}
+
+      {steps.map((step, index) => (
         <StepAccordion
           key={step.id}
           step={step}
           isOpen={index === openStepIndex}
           stepNumber={index + 1}
-          totalSteps={bundleData.steps.length}
+          totalSteps={steps.length}
           selectedCount={getStepSelectedCount(step)}
           onToggle={() =>
             setOpenStepIndex((currentIndex) =>
@@ -38,11 +51,11 @@ export default function BuilderSection() {
           }
           onNext={() =>
             setOpenStepIndex((currentIndex) =>
-              Math.min(currentIndex + 1, bundleData.steps.length - 1),
+              Math.min(currentIndex + 1, steps.length - 1),
             )
           }
-          nextStepTitle={bundleData.steps[index + 1]?.title}
-          isLastStep={index === bundleData.steps.length - 1}
+          nextStepTitle={steps[index + 1]?.title}
+          isLastStep={index === steps.length - 1}
         />
       ))}
     </div>
